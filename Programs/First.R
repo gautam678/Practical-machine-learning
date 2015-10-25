@@ -1,0 +1,9 @@
+library(caret);
+library(kernlab)
+data(spam)
+inTrain<-createDataPartition(y=spam$type,p=0.75,list=FALSE)
+train<-spam[inTrain,]
+test<-spam[-inTrain,]
+modelfit<-train(type~.,data=train,method="glm")
+p<-predict(modelfit,newdata=test)
+confusionMatrix(p,test$type)
